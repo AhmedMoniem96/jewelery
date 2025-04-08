@@ -16,6 +16,9 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-hzqu3j!^z#d45x(#x74pws-5#j
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1,localhost,web-production-09925.up.railway.app').split(',')
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-09925.up.railway.app'
+]
 
 # Application definition
 INSTALLED_APPS = [

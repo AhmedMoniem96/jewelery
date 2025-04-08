@@ -2,135 +2,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Products</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background-color: #1f0e2e;
-            color: #e0d0e7;
-        }
-        .header-image {
-            width: 100%;
-            height: auto;
-        }
-        .section-heading {
-            text-align: center;
-            font-size: 40px;
-            color: #d6b1d8;
-            margin-top: 40px;
-            letter-spacing: 2px;
-        }
-        .results-info {
-            text-align: center;
-            margin: 10px auto 30px;
-            color: #e0d0e7;
-            font-size: 16px;
-        }
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            padding: 0 30px 50px;
-        }
-        .product-card {
-            background-color: #3b2145;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        .product-card:hover {
-            transform: scale(1.05);
-        }
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            border-radius: 10px;
-        }
-        .product-name {
-            color: #f2d1ff;
-            margin-top: 10px;
-            font-size: 16px;
-            letter-spacing: 1px;
-        }
-        .product-price {
-            color: #ffdf40;
-            font-weight: bold;
-            font-size: 15px;
-            margin: 5px 0 15px;
-        }
-        .product-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-        }
-        .buy-button, .cart-button {
-            font-size: 13px;
-            padding: 6px 12px;
-            border-radius: 5px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .buy-button {
-            background-color: white;
-            color: #3b2145;
-            border: 2px solid #3b2145;
-        }
-        .buy-button:hover {
-            background-color: #3b2145;
-            color: white;
-        }
-        .cart-button {
-            background-color: #a26baf;
-            color: white;
-        }
-        .cart-button:hover {
-            background-color: #8c5c99;
-        }
-        @media (max-width: 600px) {
-            .section-heading {
-                font-size: 28px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Products</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #1f0e2e;
+      color: #e0d0e7;
+    }
+
+    .header-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .section-heading {
+      text-align: center;
+      font-size: 40px;
+      color: #d6b1d8;
+      margin-top: 40px;
+      letter-spacing: 2px;
+    }
+
+    .results-info {
+      text-align: center;
+      margin: 10px auto 30px;
+      font-size: 16px;
+      color: #e0d0e7;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      padding: 0 30px 50px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .product-card {
+      background-color: #3b2145;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .product-card:hover {
+      transform: scale(1.05);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .product-name {
+      color: #f2d1ff;
+      margin-top: 12px;
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
+
+    .product-price {
+      color: #ffdf40;
+      font-weight: bold;
+      font-size: 15px;
+      margin: 5px 0 15px;
+    }
+
+    .product-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .buy-button, .cart-button {
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 5px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .buy-button {
+      background-color: white;
+      color: #3b2145;
+      border: 2px solid #3b2145;
+    }
+
+    .buy-button:hover {
+      background-color: #3b2145;
+      color: white;
+    }
+
+    .cart-button {
+      background-color: #a26baf;
+      color: white;
+    }
+
+    .cart-button:hover {
+      background-color: #8c5c99;
+    }
+
+    @media (max-width: 768px) {
+      .section-heading {
+        font-size: 28px;
+      }
+
+      .product-card img {
+        height: 180px;
+      }
+
+      .product-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .buy-button, .cart-button {
+        width: 80%;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .product-card img {
+        height: 160px;
+      }
+
+      .buy-button, .cart-button {
+        font-size: 13px;
+        padding: 8px 12px;
+      }
+
+      .product-grid {
+        padding: 0 20px 40px;
+        gap: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    {% include 'client/navbar.html' %}
 
-    <img src="{% static 'img/product.png' %}" alt="Our Product Banner" class="header-image">
+  {% include 'client/navbar.html' %}
 
-    <h2 class="section-heading">OUR PRODUCT</h2>
-    <div class="results-info">
-        SHOWING <strong>09</strong> - <strong>1</strong> OF <strong>20</strong> RESULTS
+  <img src="{% static 'img/product.png' %}" alt="Our Product Banner" class="header-image">
+
+  <h2 class="section-heading">OUR PRODUCT</h2>
+  <div class="results-info">
+    SHOWING <strong>09</strong> - <strong>1</strong> OF <strong>20</strong> RESULTS
+  </div>
+
+  <div class="product-grid">
+    {% for pr in prod %}
+    <div class="product-card">
+      <a href="/product_detail/{{ pr.product_id }}">
+        <img src="{{ pr.img.url }}" alt="{{ pr.name }}">
+      </a>
+      <div class="product-name">{{ pr.name }}</div>
+      <div class="product-price">{{ pr.price }} LE</div>
+      <div class="product-buttons">
+        <a href="https://wa.me/201010800836?text=I%20want%20to%20buy%20{{ pr.name }}">
+          <button class="buy-button">Buy</button>
+        </a>
+        <a href="/cart/{{ pr.product_id }}">
+          <button class="cart-button">Add to Cart</button>
+        </a>
+      </div>
     </div>
+    {% endfor %}
+  </div>
 
-    <div class="product-grid">
-        {% for pr in prod %}
-        <div class="product-card">
-            <a href="/product_detail/{{ pr.product_id }}">
-                <img src="{{ pr.img.url }}" alt="{{ pr.name }}">
-            </a>
-            <div class="product-name">{{ pr.name }}</div>
-            <div class="product-price">{{ pr.price }}LE</div>
-            <div class="product-buttons">
-                <a href="https://wa.me/201010800836?text=I%20want%20to%20buy%20{{ pr.name }}">
-                    <button class="buy-button">Buy</button>
-                </a>
-                <a href="/cart/{{ pr.product_id }}">
-                    <button class="cart-button">Add to Cart</button>
-                </a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+  {% include 'client/footer.html' %}
 
-    {% include 'client/footer.html' %}
 </body>
 </html>

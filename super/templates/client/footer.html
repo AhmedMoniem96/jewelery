@@ -1,66 +1,105 @@
 {% load static %}
 
 <div class="footer" style="background-color: #2e2137; color: #ffffff; padding: 40px 20px; text-align: center; font-family: Arial, sans-serif;">
+  <div class="footer-content" style="max-width: 1100px; margin: 0 auto;">
 
-    <div class="footer-content" style="max-width: 1100px; margin: 0 auto;">
-
-        <div class="footer-logo" style="margin-bottom: 20px;">
-
-            <img src="{% static 'img/logo.png' %}" alt="Footer Logo" style="width:500px; vertical-align: middle;">
-
-            <!-- <span style="font-size:24px; font-weight:bold; vertical-align: middle;">CRYSTAL</span> -->
-
-        </div>
-
-        <div class="footer-links" style="margin-bottom: 25px;">
-
-            <a href="/" style="margin: 0 10px; color: #ffffff; text-decoration: none;">HOME</a>
-
-            <a href="#categories" style="margin: 0 10px; color: #ffffff; text-decoration: none;">CATEGORIES</a>
-
-            <a href="#products" style="margin: 0 10px; color: #ffffff; text-decoration: none;">OUR PRODUCTS</a>
-
-            <a href="#services" style="margin: 0 10px; color: #ffffff; text-decoration: none;">OUR SERVICES</a>
-
-            <a href="/signup" style="margin: 0 10px; color: #ffffff; text-decoration: none;">SIGN IN</a>
-
-            <a href="/login" style="margin: 0 10px; color: #ffffff; text-decoration: none;">LOGIN</a>
-
-        </div>
-
-        <div class="footer-info" style="margin-bottom: 25px; line-height: 1.6;">
-
-            <p><strong>ADDRESS</strong><br>ZAGAZIG, Diyarb NEGM, IN FRONT OF THE CITY COUNCIL, ABOVE HELWAN LANGUAGE, FIFTH FLOOR.</p>
-
-            <p><strong>WORKING HOURS</strong><br>DAILY FROM 10:00 AM TO 8:00 PM.</p>
-
-            <p><strong>            <a href="#"><img src="{% static 'img/fp.png' %}" alt="Phone" style="width:30px; margin:0 8px;"></a>
-                01024620623</strong></p>
-
-        </div>
-
-        <div class="social-icons" style="margin-bottom: 25px;">
-
-            <a href="#"><img src="{% static 'img/ff.png' %}" alt="Facebook" style="width:35px; margin:0 8px;"></a>
-
-            <a href="#"><img src="{% static 'img/fi.png' %}" alt="Instagram" style="width:35px; margin:0 8px;"></a>
-
-            <a href="#"><img src="{% static 'img/ft.png' %}" alt="TikTok" style="width:35px; margin:0 8px;"></a>
-
-            <a href="#"><img src="{% static 'img/fe.png' %}" alt="Gmail" style="width:35px; margin:0 8px;"></a>
-
-            <a href="#"><img src="{% static 'img/fw.png' %}" alt="WhatsApp" style="width:35px; margin:0 8px;"></a>
-
-        </div>
-
-        <div class="footer-copyright" style="border-top: 1px solid #a78eaa; padding-top: 20px;">
-
-            <img src="{% static 'img/logo_footer.png' %}" alt="Copyright Logo" style="width:40px; vertical-align: middle;">
-
-            <span style="vertical-align: middle;">Copyright</span>
-
-        </div>
-
+    <!-- Logo -->
+    <div class="footer-logo" style="margin-bottom: 20px;">
+      <img src="{% static 'img/logo.png' %}" alt="Footer Logo" style="width: 100%; max-width: 300px; height: auto; vertical-align: middle;">
     </div>
 
+    <!-- Navigation Links -->
+    <div class="footer-links" style="margin-bottom: 25px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+      <a href="/" class="footer-link">HOME</a>
+      <a href="#categories" class="footer-link">CATEGORIES</a>
+      <a href="#products" class="footer-link">OUR PRODUCTS</a>
+      <a href="#services" class="footer-link">OUR SERVICES</a>
+      <a href="/signup" class="footer-link">SIGN UP</a>
+      <a href="/login" class="footer-link">LOGIN</a>
+    </div>
+
+    <!-- Store Info -->
+    <div class="footer-info" style="margin-bottom: 25px; line-height: 1.6;">
+      <p><strong>ADDRESS</strong><br>
+        ZAGAZIG, Diyarb NEGM, IN FRONT OF THE CITY COUNCIL, ABOVE HELWAN LANGUAGE, FIFTH FLOOR.
+      </p>
+      <p><strong>WORKING HOURS</strong><br>
+        DAILY FROM 10:00 AM TO 8:00 PM.
+      </p>
+      <p>
+        <strong>
+          <img src="{% static 'img/fp.png' %}" alt="Phone" style="width: 20px; vertical-align: middle; margin: 0 8px;">
+          01024620623
+        </strong>
+      </p>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="social-icons" style="margin-bottom: 25px; display: flex; justify-content: center; flex-wrap: wrap; gap: 15px;">
+      <a href="#" class="social-icon"><img src="{% static 'img/ff.png' %}" alt="Facebook"></a>
+      <a href="#" class="social-icon"><img src="{% static 'img/fi.png' %}" alt="Instagram"></a>
+      <a href="#" class="social-icon"><img src="{% static 'img/ft.png' %}" alt="TikTok"></a>
+      <a href="#" class="social-icon"><img src="{% static 'img/fe.png' %}" alt="Gmail"></a>
+      <a href="#" class="social-icon"><img src="{% static 'img/fw.png' %}" alt="WhatsApp"></a>
+    </div>
+
+    <!-- Copyright -->
+    <div style="border-top: 1px solid #a78eaa; padding-top: 20px;">
+      <img src="{% static 'img/logo_footer.png' %}" alt="Copyright Logo" style="width: 30px; vertical-align: middle;">
+      <span style="vertical-align: middle;">Copyright</span>
+    </div>
+  </div>
 </div>
+
+<!-- Hover Styles -->
+<style>
+  .footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 3px;
+    transition: color 0.3s ease;
+  }
+
+  .footer-link::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: 0;
+    background-color: #d4af37;
+    transition: width 0.3s ease;
+  }
+
+  .footer-link:hover {
+    color: #d4af37;
+  }
+
+  .footer-link:hover::after {
+    width: 100%;
+  }
+
+  .social-icon img {
+    width: 35px;
+    transition: transform 0.3s ease;
+  }
+
+  .social-icon:hover img {
+    transform: scale(1.2);
+  }
+
+  @media (max-width: 480px) {
+    .footer-link {
+      font-size: 14px;
+    }
+
+    .footer-info p {
+      font-size: 14px;
+    }
+
+    .social-icon img {
+      width: 28px;
+    }
+  }
+</style>

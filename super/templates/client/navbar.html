@@ -2,99 +2,189 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /><style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navbar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #3b2145;
+      padding: 10px 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      height: 70px;
+      flex-wrap: nowrap;
+      
+    }
+
+    .nav-left, .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
 
     .navbar a {
-        color: #fce8d5;
-        text-decoration: none;
-        font-size: 18px;
-        font-weight: 600;
-        padding: 6px 10px;
-        transition: all 0.3s ease;
-        position: relative;
-        font-family: 'Georgia', serif;
-        letter-spacing: 0.4px;
+      color: #fce8d5;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      font-family: 'Georgia', serif;
+      letter-spacing: 0.4px;
     }
 
     .navbar a:hover {
-        color: #d4af37;
+      color: #d4af37;
     }
 
     .navbar a::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0%;
-        height: 2px;
-        background-color: #d4af37;
-        transition: 0.3s ease-in-out;
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #d4af37;
+      transition: 0.3s ease-in-out;
     }
 
     .navbar a:hover::after {
-        width: 100%;
+      width: 100%;
     }
 
     .cart-icon {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding-left: 5px;
-    }
-
-    .cart-icon img {
-        width: 26px;
-        height: 26px;
-        object-fit: contain;
-        vertical-align: middle;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .cart-count {
-        position: absolute;
-        top: -6px;
-        right: -10px;
-        background-color: red;
-        color: white;
-        font-size: 12px;
-        font-weight: bold;
-        padding: 2px 6px;
-        border-radius: 50%;
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background-color: red;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 50%;
     }
-    .navbar {
-        display: flex;
+
+    .logo {
+      width: 170px;
+      max-height: 55px;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background-color: #fce8d5;
+      margin: 4px 0;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 992px) {
+      .navbar {
+        flex-wrap: wrap;
         justify-content: center;
-        align-items: center;
-        background-color: #3b2145;
-        padding: 12px 20px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        position: fixed;
+        padding: 10px 20px;
+        height: auto;
+      }
+
+      .logo {
+        width: 140px;
+        margin: 10px auto;
+        order: 1;
+      }
+
+      .menu-toggle {
+        display: flex;
+        order: 2;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+      }
+
+      .nav-left, .nav-right {
+        flex-direction: column;
         width: 100%;
-        top: 0;
-        z-index: 1000;
-        gap: 100px; 
-        height: 80px;
+        display: none;
+        background-color: #3b2145;
+        padding: 10px 0;
+        order: 3;
+      }
+
+      .nav-left.show, .nav-right.show {
+        display: flex;
+      }
+
+      .nav-left a, .nav-right a {
+        padding: 10px 15px;
+        width: 100%;
+        text-align: left;
+      }
     }
-    
-    .navbar a,
-    .navbar img {
-        margin: 0 15px; /* إضافة مسافات جانبية */
-    }
-</style>
+  </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="/">Home</a>
-        <a href="/#categories">Categories</a>
-        <a href="{% url 'services' %}">Services</a>
-        <img src="{% static 'img/logo.png' %}" alt="navbar Logo" style="width:200px; vertical-align: middle;">
-        <a href="/signup">Sign Up</a>
-        <a href="/login">Login</a>
-        <a href="/cart_view" class="cart-icon">
-            <i class="fas fa-shopping-cart" style="font-size: 26px; color: #fce8d5;"></i>
-            <span class="cart-count">{{ cart_count }}</span>
-        </a>
+  <div class="navbar">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
-    </body>
+
+    <div class="nav-left" id="navLeft">
+      <a href="/" onclick="closeMenu()">Home</a>
+      <a href="/#categories" onclick="closeMenu()">Categories</a>
+      <a href="{% url 'services' %}" onclick="closeMenu()">Services</a>
+    </div>
+
+    <img src="{% static 'img/logo.png' %}" class="logo" alt="navbar Logo" />
+
+    <div class="nav-right" id="navRight">
+      <a href="/signup" onclick="closeMenu()">Sign Up</a>
+      <a href="/login" onclick="closeMenu()">Login</a>
+      <a href="/cart_view" class="cart-icon" onclick="closeMenu()">
+        <i class="fas fa-shopping-cart" style="font-size: 26px; color: #fce8d5;"></i>
+        <span class="cart-count">{{ cart_count }}</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLeft').classList.toggle('show');
+      document.getElementById('navRight').classList.toggle('show');
+    }
+
+    function closeMenu() {
+      document.getElementById('navLeft').classList.remove('show');
+      document.getElementById('navRight').classList.remove('show');
+    }
+  </script>
+</body>
 </html>

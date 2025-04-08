@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,17 +10,17 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Times New Roman', serif;
         }
 
         body {
-            display: flex;
-            height: 100vh;
-            font-family: 'Times New Roman', serif;
+            min-height: 100vh;
+            background: #f8f5f2;
         }
 
         .container {
             display: flex;
-            width: 100%;
+            min-height: 100vh;
         }
 
         .left-section {
@@ -34,8 +33,10 @@
         }
 
         .left-section img {
-            max-width: 80%;
+            max-width: 100%;
+            max-height: 80vh;
             border-radius: 10px;
+            object-fit: contain;
         }
 
         .right-section {
@@ -44,7 +45,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
             padding: 40px;
         }
 
@@ -55,9 +55,10 @@
         }
 
         h2 {
-            font-size: 32px;
+            font-size: 2.5rem;
             color: #7a6553;
-            margin-bottom: 20px;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
         }
 
         input {
@@ -67,7 +68,7 @@
             border: 1px solid #a49389;
             border-radius: 5px;
             background: transparent;
-            font-size: 16px;
+            font-size: 1rem;
         }
 
         input::placeholder {
@@ -79,14 +80,83 @@
             padding: 12px;
             background: #2E1E37;
             color: white;
-            font-size: 16px;
+            font-size: 1rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s ease;
+            text-transform: uppercase;
         }
 
         button:hover {
             background: #221629;
+        }
+
+        /* Medium screens */
+        @media (max-width: 992px) {
+            h2 {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .left-section, .right-section {
+                padding: 30px;
+            }
+        }
+
+        /* Tablets and Mobiles - Stack vertically */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                min-height: auto;
+            }
+            
+            .left-section, .right-section {
+                width: 100%;
+                padding: 30px;
+            }
+            
+            .left-section {
+                height: auto;
+                min-height: 30vh;
+                order: 1; /* Image comes first */
+            }
+            
+            .left-section img {
+                max-height: 50vh;
+            }
+            
+            .right-section {
+                order: 2; /* Form comes second */
+                min-height: 70vh;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Mobile phones */
+        @media (max-width: 480px) {
+            .left-section {
+                min-height: 25vh;
+                padding: 20px;
+            }
+            
+            .right-section {
+                min-height: 75vh;
+                padding: 30px 20px;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            input, button {
+                padding: 12px;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -103,12 +173,25 @@
                 <h2>LOG IN</h2>
                 <form method="POST">
                     {% csrf_token %}
-                    <input type="text" name="user" placeholder="user name" required>
-                    <input type="password" name="password" placeholder="password" required>
+                    <input type="text" name="user" placeholder="User Name" required>
+                    <input type="password" name="password" placeholder="Password" required>
                     <button type="submit">LOG IN</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <script>
+        // Auto-scroll to focused input on mobile
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('focus', () => {
+                    setTimeout(() => {
+                        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
