@@ -1,0 +1,114 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+        }
+
+        .left-section {
+            width: 50%;
+            background-color: #2E1E37;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .left-section img {
+            max-width: 80%;
+            border-radius: 10px;
+        }
+
+        .right-section {
+            width: 50%;
+            background: #f8f5f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 40px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 32px;
+            color: #7a6553;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #a49389;
+            border-radius: 5px;
+            background: transparent;
+            font-size: 16px;
+        }
+
+        input::placeholder {
+            color: #a49389;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2E1E37;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #221629;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section with Jewelry Image -->
+        <div class="left-section">
+            <img src="{% static 'img/loginside.png' %}" alt="Jewelry">
+        </div>
+
+        <!-- Right Section with Login Form -->
+        <div class="right-section">
+            <div class="login-box">
+                <h2>LOG IN</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="user" placeholder="user name" required>
+                    <input type="password" name="password" placeholder="password" required>
+                    <button type="submit">LOG IN</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,303 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Reset & Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #3e2c44;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        /* Full-Width Sections */
+        .section {
+            width: 100%;
+            height: 400px;
+            /* Default height (adjustable) */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Background Images */
+        .section-1 {
+            background-image: url('{% static "img/section1services.png" %}');
+        }
+
+        .section-2 {
+            background-image: url('{% static "img/section2services.png" %}');
+        }
+
+        .section-3 {
+            background-image: url('{% static "img/section3services.png" %}');
+        }
+
+        .section-4 {
+            background-image: url('{% static "img/section4services.png" %}');
+        }
+
+        /* Dark Overlay */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .section-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            max-width: 80%;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            font-size: 1.2rem;
+        }
+
+        /* Separator */
+        .separator {
+            width: 80%;
+            height: 3px;
+            background: #6C3483;
+            margin: 40px auto;
+            border-radius: 5px;
+        }
+
+        /* Services Section */
+        .services-section {
+            background: #fff;
+            padding: 50px 20px;
+        }
+
+        .services-section h2 {
+            font-size: 2.5rem;
+            color: #6C3483;
+            margin-bottom: 10px;
+        }
+
+        .services-section p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Call to Action */
+        .cta {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .cta button {
+            background: #FF5733;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cta button:hover {
+            background: #C70039;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card i {
+            font-size: 40px;
+            color: #7a6553;
+            margin-bottom: 10px;
+        }
+
+        .service-card h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .service-card ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .service-card ul li {
+            font-size: 14px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .service-card button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #2E1E37;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .service-card button:hover {
+            background: #221629;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest"></script>
+
+</head>
+
+<body>
+
+    {% include 'client/navbar.html' %} <!-- Include Navbar -->
+
+
+    <!-- Full-Width Sections with Backgrounds -->
+    <div class="section section-1">
+        <div class="overlay"></div>
+        
+    </div>
+
+    <div class="separator"></div> <!-- Separator -->
+
+    <div class="section section-2">
+        <div class="overlay"></div>
+        
+    </div>
+
+    <div class="separator"></div> <!-- Separator -->
+
+    <div class="section section-3">
+        <div class="overlay"></div>
+        
+    </div>
+
+    <div class="separator"></div> <!-- Separator -->
+
+    <div class="section section-4">
+        <div class="overlay"></div>
+       
+    </div>
+
+    <div class="separator"></div> <!-- Separator -->
+
+    <!-- Our Services Section -->
+    <div class="container">
+        <div class="header">
+            <h1>Our Services</h1>
+            <p>Comprehensive solutions to transform your digital landscape</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <i data-lucide="code"></i>
+                <h2>Web Development</h2>
+                <p>Custom web solutions tailored to your business needs.</p>
+                <ul>
+                    <li>Frontend & Backend Development</li>
+                    <li>Responsive Design</li>
+                    <li>Single Page Applications</li>
+                    <li>E-commerce Solutions</li>
+                </ul>
+                <button>Learn More</button>
+            </div>
+
+            <div class="service-card">
+                <i data-lucide="database"></i>
+                <h2>Database Management</h2>
+                <p>Efficient database optimization and management.</p>
+                <ul>
+                    <li>Database Architecture</li>
+                    <li>Performance Optimization</li>
+                    <li>Data Migration</li>
+                    <li>Backup & Recovery Solutions</li>
+                </ul>
+                <button>Learn More</button>
+            </div>
+
+            <div class="service-card">
+                <i data-lucide="cloud-lightning"></i>
+                <h2>Cloud Services</h2>
+                <p>Scalable cloud solutions to enhance business performance.</p>
+                <ul>
+                    <li>Cloud Migration</li>
+                    <li>Serverless Computing</li>
+                    <li>Cloud Security</li>
+                    <li>Hybrid Cloud Solutions</li>
+                </ul>
+                <button>Learn More</button>
+            </div>
+
+            
+        </div>
+    </div>
+
+    {% include 'client/footer.html' %}
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
