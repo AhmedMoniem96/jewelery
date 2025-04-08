@@ -1,10 +1,11 @@
 from pathlib import Path
-import os
-import dj_database_url
 from dotenv import load_dotenv
+import dj_database_url
+import os
 
-# Load .env if present (optional for local dev)
 load_dotenv()
+print("🌐 DATABASE_URL:", os.getenv("DATABASE_URL"))
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -60,18 +61,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 ## Database (PostgreSQL on Railway or SQLite for dev)
-DATABASE_URL = os.getenv("DATABASE_URL") or os.getenv("Postgres.DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 if DATABASE_URL:
     DATABASES = {
         'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
     }
 
 # Password validation
