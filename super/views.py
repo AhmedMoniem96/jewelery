@@ -197,7 +197,7 @@ def profile(request):
         cart = request.session.get('cart', {})
         cart_count = len(cart)
         context = {'cat': cat, 'cart_count': cart_count, 'user': user}
-        return render(request, 'client/navpro.html', context)
+        return render(request, 'client/profile.html', context)
     except Client.DoesNotExist:
         return redirect('login') 
 
