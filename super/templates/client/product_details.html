@@ -2,281 +2,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
-    <style>
-        body {
-            font-family: 'Tajawal', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #3b2145;
-            color: #e0d0e7;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Details</title>
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #3b2145;
+      color: #e0d0e7;
+    }
 
-        .spacer {
-            height: 80px;
-        }
+    .section {
+      background-color: #3b2145;
+      padding: 40px 0;
+    }
 
-        .section {
-            background-color: #3b2145;
-            padding: 40px 0;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
-        }
+    .container {
+      width: 90%;
+      margin: auto;
+    }
 
-        .container {
-            width: 90%;
-            margin: auto;
-        }
+    .product {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
 
-        .product {
-            background: #3b2145;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
+    .product-row {
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
 
-        .product-row {
-            display: flex;
-            flex-direction: row;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
+    .image-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .image-container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .image-container img {
+      width: 280px;
+      border-radius: 10px;
+      transition: transform 0.3s;
+      cursor: zoom-in;
+    }
 
-        .image-container img {
-            width: 280px;
-            border-radius: 10px;
-            transition: transform 0.3s;
-        }
+    .product-details {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-        .image-container img:hover {
-            transform: scale(1.1);
-        }
+    .product-name {
+      font-size: 24px;
+      font-weight: bold;
+      color: #b8a38e;
+    }
 
-        .product-details {
-            flex: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    .product-price {
+      font-size: 22px;
+      color: #b8a38e;
+    }
 
-        .product-name {
-            font-size: 24px;
-            font-weight: bold;
-            color: #b8a38e;
-        }
+    .section-title {
+      color: #b8a38e;
+      font-weight: bold;
+      margin-top: 20px;
+    }
 
-        .product-price {
-            font-size: 22px;
-            color: #b8a38e;
-        }
+    .section-content {
+      color: #e0d0e7;
+      margin-top: 5px;
+    }
 
-        .section-title {
-            color: #b8a38e;
-            font-weight: bold;
-            margin-top: 20px;
-        }
+    .color-circle-container {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-        .section-content {
-            color: #e0d0e7;
-            margin-top: 5px;
-        }
+    .color-circle {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid white;
+    }
 
-        .product-buttons {
-            margin-top: 20px;
-        }
+    .picture-section {
+      background: url('{% static "img/productdetails.png" %}') no-repeat center center;
+      background-size: cover;
+      height: 500px;
+      margin-top: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .buy-button, .cart-button {
-            display: none;
-        }
+    .golden-hr {
+      width: 90%;
+      height: 2px;
+      background: linear-gradient(to right, #b8a38e, #d9b867, #b8a38e);
+      border: none;
+      margin: 40px auto;
+    }
 
-        .color-circle-container {
-            margin-top: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+    .cart-button {
+      margin-top: 20px;
+      background-color: #a26baf;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-        .color-circle {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid white;
-        }
+    .cart-button:hover {
+      background-color: #8c5c99;
+    }
 
-        .gallery-item {
-            text-align: center;
-            margin: 15px;
-            color: #b8a38e;
-        }
+    #toast {
+      visibility: hidden;
+      min-width: 200px;
+      background-color: #a78eaa;
+      color: white;
+      text-align: center;
+      border-radius: 6px;
+      padding: 12px;
+      position: fixed;
+      z-index: 9999;
+      right: 30px;
+      bottom: 30px;
+      font-size: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
 
-        .gallery-item img {
-            width: 150px;
-            border-radius: 8px;
-        }
+    #zoomModal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      padding-top: 80px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+    }
 
-        .picture-section {
-            background: url('{% static "img/productdetails.png" %}') no-repeat center center;
-            background-size: cover;
-            height: 600px;
-            margin-top: 80px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: inset 0 -80px 60px rgba(0, 0, 0, 0.4);
-        }
+    #zoomModal span {
+      position: absolute;
+      top: 30px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      cursor: pointer;
+    }
 
-        .overlay-text {
-            color: #fff;
-            font-size: 38px;
-            font-weight: bold;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 20px 40px;
-            border-radius: 10px;
-            text-align: center;
-        }
+    #zoomedImage {
+      margin: auto;
+      display: block;
+      width: 90%;
+      max-width: 600px;
+    }
 
-        .golden-hr {
-            width: 90%;
-            height: 2px;
-            background: linear-gradient(to right, #b8a38e, #d9b867, #b8a38e);
-            border: none;
-            margin: 40px auto;
-        }
-
-        @media (max-width: 768px) {
-            .product-row {
-                flex-direction: column;
-            }
-
-            .image-container img {
-                width: 100%;
-            }
-
-            .product-details {
-                align-items: center;
-            }
-
-            .color-circle {
-                width: 20px;
-                height: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .product-name {
-                font-size: 20px;
-            }
-
-            .product-price {
-                font-size: 18px;
-            }
-
-            .section-title {
-                font-size: 18px;
-            }
-
-            .section-content {
-                font-size: 16px;
-            }
-        }
-    </style>
-
-    <script>
-        function showColorImage(imgUrl) {
-            document.getElementById("mainProductImage").src = imgUrl;
-        }
-    </script>
+    @media (max-width: 768px) {
+      .product-row {
+        flex-direction: column;
+      }
+      .image-container img {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-    {% include 'client/navbar.html' %}
 
-    <!-- Picture Section -->
-    <section class="picture-section">
-    </section>
+  {% include 'client/navbar.html' %}
 
-    <hr class="golden-hr">
+  <div class="picture-section"></div>
+  <hr class="golden-hr">
 
-    <!-- Product Section -->
-    <section class="section">
-        <div class="container">
-            {% for product in prode %}
-            <div class="product">
-                <div class="product-row">
-                    <div class="image-container">
-                        <img id="mainProductImage" src="{{ product.img.url }}" alt="Product Image">
-                    </div>
-                    <div class="product-details">
-                        <div class="product-name">{{ product.name }}</div>
-                        <div class="product-price">{{ product.price }} $</div>
-                        <div class="section-title">Description</div>
-                        <div class="section-content">{{ product.desc }}</div>
-                        <div class="section-title">Design</div>
-                        <div class="section-content">{{ product.design }}</div>
-                        <div class="section-title">Detail</div>
-                        <div class="section-content">{{ product.detail }}</div>
+  <section class="section">
+    <div class="container">
+      {% for product in prode %}
+      <div class="product">
+        <div class="product-row">
+          <div class="image-container">
+            <img id="mainProductImage" src="{{ product.img.url }}" alt="Product Image" onclick="zoomImage(this.src)">
+          </div>
+          <div class="product-details">
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-price">{{ product.price }} $</div>
+            <div class="section-title">Description</div>
+            <div class="section-content">{{ product.desc }}</div>
+            <div class="section-title">Design</div>
+            <div class="section-content">{{ product.design }}</div>
+            <div class="section-title">Detail</div>
+            <div class="section-content">{{ product.detail }}</div>
 
-                        <div class="product-buttons">
-                            <!-- Buttons hidden -->
-                        </div>
+            <a href="/cart/{{ product.product_id }}" onclick="showToast()">
+              <button class="cart-button">Add to Cart</button>
+            </a>
 
-                        <div class="color-circle-container">
-                            {% for color_option in color %}
-                            <div class="color-circle"
-                                onclick="showColorImage('{{ color_option.img.url }}')"
-                                style="background-color: {{ color_option.name|lower }}">
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
+            <div class="color-circle-container">
+              {% for color_option in color %}
+              <div class="color-circle"
+                   onclick="showColorImage('{{ color_option.img.url }}')"
+                   style="background-color: {{ color_option.name|lower }}">
+              </div>
+              {% endfor %}
             </div>
-            {% endfor %}
+          </div>
         </div>
-    </section>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
 
-    <hr class="golden-hr">
+  <hr class="golden-hr">
 
-    <!-- Similar Products -->
-    <section class="section">
-        <div class="container">
-            <h2 style="color: #b8a38e; text-align:center; margin-bottom: 30px;">SIMILAR</h2>
-    
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
-                {% for item in cat %}
-                <div style="
-                    background-color: #442a55;
-                    border-radius: 10px;
-                    width: 180px;
-                    padding: 15px;
-                    text-align: center;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-                    transition: transform 0.3s, box-shadow 0.3s;
-                " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.4)';"
-                   onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)';">
-    
-                    <a href="/product_detail/{{ item.id }}" style="text-decoration: none;">
-                        <img src="{{ item.img.url }}" alt="{{ item.name }}" style="width: 100%; border-radius: 8px; margin-bottom: 10px;">
-                        <p style="color: #e0d0e7; font-weight: 500;">{{ item.name }}</p>
-                    </a>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
-    <hr class="golden-hr">
+  {% include 'client/footer.html' %}
 
+  <!-- Toast Notification -->
+  <div id="toast">Added to Cart ✔️</div>
 
-    {% include 'client/footer.html' %}
+  <!-- Zoom Modal -->
+  <div id="zoomModal">
+    <span onclick="closeZoom()">&times;</span>
+    <img id="zoomedImage" />
+  </div>
+
+  <script>
+    function showColorImage(imgUrl) {
+      document.getElementById("mainProductImage").src = imgUrl;
+    }
+
+    function showToast() {
+      const toast = document.getElementById("toast");
+      toast.style.visibility = "visible";
+      setTimeout(() => { toast.style.visibility = "hidden"; }, 2500);
+
+      const cartCount = document.getElementById("cartCount");
+      if (cartCount) {
+        const count = parseInt(cartCount.textContent || 0);
+        cartCount.textContent = count + 1;
+      }
+    }
+
+    function zoomImage(src) {
+      document.getElementById("zoomedImage").src = src;
+      document.getElementById("zoomModal").style.display = "block";
+    }
+
+    function closeZoom() {
+      document.getElementById("zoomModal").style.display = "none";
+    }
+  </script>
 </body>
 </html>

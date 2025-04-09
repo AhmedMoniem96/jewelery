@@ -2,155 +2,232 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #2e1a35;
-            color: #e0d0e7;
-            text-align: center;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shopping Cart</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #2e1a35;
+      color: #e0d0e7;
+      text-align: center;
+    }
+
+    .header-section {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      background: url("{% static 'img/cartsection.png' %}") no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .container {
+      width: 90%;
+      margin: -80px auto 30px;
+      padding: 20px;
+      background: #3b2145;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #b8a38e;
+      padding: 12px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    th {
+      background-color: #442a55;
+      color: #ffccff;
+    }
+
+    img {
+      max-width: 90px;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .quantity-controls button {
+      background: #b8a38e;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .delete-button {
+      background: #ff4c4c;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .total-price {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 30px;
+      color: #ffccff;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .container {
+        width: 95%;
+        padding: 10px;
+      }
+
+      th, td {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      .quantity-controls button {
+        padding: 5px 10px;
+        font-size: 14px;
+      }
+
+      .delete-button {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+
+      img {
+        max-width: 70px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .quantity-controls {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      th, td {
+        font-size: 13px;
+      }
+
+      .header-section {
+        height: 300px;
+      }
+
+      .total-price {
+        font-size: 18px;
+      }
+    }
+  </style>
+  <script>
+    function updateQuantity(productId, action) {
+      fetch(`/update_cart/${productId}/${action}/`, { method: 'GET' })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          document.getElementById("quantity-" + productId).innerText = data.quantity;
+          updateTotalPrice();
         }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-            background: #3b2145;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .header-section {
-            position: relative;
-            width: 100%;
-            height: 700px; /* Adjust height as needed */
-            background: url("{% static 'img/cartsection.png' %}") no-repeat center center/cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .header-overlay {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Dark overlay for readability */
-        }
-        .header-text {
-            position: relative;
-            z-index: 2;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #b8a38e;
-            padding: 10px;
-            text-align: center;
-        }
-        img {
-            max-width: 100px;
-            height: auto;
-            border-radius: 5px;
-        }
-        .quantity-controls button {
-            background: #b8a38e;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin: 5px;
-        }
-        .total-price {
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 20px;
-            color: #ffccff;
-        }
-    </style>
-    <script>
-        function updateQuantity(productId, action) {
-            fetch(`/update_cart/${productId}/${action}/`, { method: 'GET' })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById("quantity-" + productId).innerText = data.quantity;
-                    updateTotalPrice();
-                }
-            });
-        }
-        function updateTotalPrice() {
-            let totalPrice = 0;
-            document.querySelectorAll("tbody tr").forEach(row => {
-                let price = parseFloat(row.querySelector(".price").innerText.replace('LE', '').trim());
-                let quantity = parseInt(row.querySelector(".quantity").innerText);
-                totalPrice += price * quantity;
-            });
-            document.getElementById("total-price").innerText = totalPrice.toFixed(2) + " LE";
-        }
-        window.onload = updateTotalPrice;
-    </script>
+      });
+    }
+
+    function updateTotalPrice() {
+      let totalPrice = 0;
+      document.querySelectorAll("tbody tr").forEach(row => {
+        let price = parseFloat(row.querySelector(".price").innerText.replace('LE', '').trim());
+        let quantity = parseInt(row.querySelector(".quantity").innerText);
+        totalPrice += price * quantity;
+      });
+      document.getElementById("total-price").innerText = totalPrice.toFixed(2) + " LE";
+    }
+
+    function removeProduct(productId) {
+      fetch(`/remove_from_cart/${productId}/`, { method: 'GET' })
+      .then(() => location.reload());
+    }
+
+    window.onload = updateTotalPrice;
+  </script>
 </head>
 <body>
-    {% include 'client/navbar.html' %}
-    
-    <div class="header-section">
-        <div class="header-overlay"></div>
-        <!-- <div class="header-text">Shopping Cart</div> -->
-    </div>
-    
-    <div class="container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Image</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for product_id, product in cart.items %}
-                <tr>
-                    <td>{{ product.name }}</td>
-                    <td class="price">{{ product.price }} LE</td>
-                    <td>
-                        <div class="quantity-controls">
-                            <button onclick="updateQuantity('{{ product_id }}', 'decrease')">-</button>
-                            <span class="quantity" id="quantity-{{ product_id }}">{{ product.quantity }}</span>
-                            <button onclick="updateQuantity('{{ product_id }}', 'increase')">+</button>
-                        </div>
-                    </td>
-                    <td>
-                        {% if product.img %}
-                            <img src="{{ product.img }}" alt="{{ product.name }}">
-                        {% else %}
-                            <span>No Image</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <button class="delete-button" onclick="removeProduct('{{ product_id }}')">❌ Delete</button>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">Cart is empty</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <div class="total-price">Total Price: <span id="total-price">0 LE</span></div>
-    </div>
+  {% include 'client/navbar.html' %}
 
-    {% include 'client/footer.html' %}
+  <div class="header-section">
+    <div class="header-overlay"></div>
+  </div>
+
+  <div class="container">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product_id, product in cart.items %}
+        <tr>
+          <td>{{ product.name }}</td>
+          <td class="price">{{ product.price }} LE</td>
+          <td>
+            <div class="quantity-controls">
+              <button onclick="updateQuantity('{{ product_id }}', 'decrease')">-</button>
+              <span class="quantity" id="quantity-{{ product_id }}">{{ product.quantity }}</span>
+              <button onclick="updateQuantity('{{ product_id }}', 'increase')">+</button>
+            </div>
+          </td>
+          <td>
+            {% if product.img %}
+              <img src="{{ product.img }}" alt="{{ product.name }}">
+            {% else %}
+              <span>No Image</span>
+            {% endif %}
+          </td>
+          <td>
+            <button class="delete-button" onclick="removeProduct('{{ product_id }}')">❌ Delete</button>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5">Your cart is empty</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="total-price">Total Price: <span id="total-price">0 LE</span></div>
+  </div>
+
+  {% include 'client/footer.html' %}
 </body>
 </html>

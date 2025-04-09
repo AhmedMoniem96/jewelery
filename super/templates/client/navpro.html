@@ -1,119 +1,183 @@
-
-
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" /><style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Navbar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+    }
+
     .navbar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #3b2145;
-        padding: 12px 20px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        position: fixed;
-        width: 100%;
-        top: 0;
-        z-index: 1000;
-        gap: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #3b2145;
+      padding: 12px 20px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .navbar .left,
+    .navbar .right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
 
     .navbar a {
-        color: #fce8d5;
-        text-decoration: none;
-        font-size: 18px;
-        font-weight: 600;
-        padding: 6px 10px;
-        transition: all 0.3s ease;
-        position: relative;
-        font-family: 'Georgia', serif;
-        letter-spacing: 0.4px;
+      color: #fce8d5;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
     .navbar a:hover {
-        color: #d4af37;
+      color: #d4af37;
     }
 
     .navbar a::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0%;
-        height: 2px;
-        background-color: #d4af37;
-        transition: 0.3s ease-in-out;
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #d4af37;
+      transition: 0.3s ease-in-out;
     }
 
     .navbar a:hover::after {
-        width: 100%;
+      width: 100%;
     }
 
     .cart-icon {
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding-left: 5px;
-    }
-
-    .cart-icon img {
-        width: 26px;
-        height: 26px;
-        object-fit: contain;
-        vertical-align: middle;
+      position: relative;
+      display: flex;
+      align-items: center;
     }
 
     .cart-count {
-        position: absolute;
-        top: -6px;
-        right: -10px;
-        background-color: red;
-        color: white;
-        font-size: 12px;
-        font-weight: bold;
-        padding: 2px 6px;
-        border-radius: 50%;
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background-color: red;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 50%;
     }
-    .navbar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #3b2145;
-        padding: 12px 20px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        position: fixed;
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .greeting {
+      color: #fce8d5;
+      font-size: 16px;
+    }
+
+    /* Hamburger toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background-color: #fce8d5;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px;
+      }
+
+      .navbar .left,
+      .navbar .right {
+        flex-direction: column;
+        align-items: flex-start;
         width: 100%;
-        top: 0;
-        z-index: 1000;
-        gap: 100px; /* زيادة المسافة بين العناصر */
+        display: none;
+        gap: 10px;
+      }
+
+      .navbar .left.show,
+      .navbar .right.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+        align-self: flex-end;
+        margin-bottom: 10px;
+      }
+
+      .greeting {
+        font-size: 15px;
+      }
     }
-    
-    .navbar a,
-    .navbar img {
-        margin: 0 15px; /* إضافة مسافات جانبية */
-    }
-</style>
+  </style>
 </head>
 <body>
+
 <div class="navbar">
+  <div class="menu-toggle" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="left" id="menuLeft">
     <a href="/">Home</a>
     <a href="#categories">Categories</a>
-
     <a href="#services">Services</a>
-    <img src="{% static 'img/logo_.png' %}" alt="Logo" style="width: 50px; height: 50px;">
-    <h3>hi {{ user.user_name }}</h3>
-    <a href="/logout">logout</a>
-    <a href="/cart_view" class="cart-icon">
-        <i class="fas fa-shopping-cart" style="font-size: 26px; color: #fce8d5;"></i>
-        <span class="cart-count">{{ cart_count }}</span>
-     
-    </a>
+  </div>
 
+  <img src="{% static 'img/logo_.png' %}" alt="Logo" class="logo" />
+
+  <div class="right" id="menuRight">
+    <span class="greeting">Welcome {{ user.user_name }}</span>
+    <a href="/logout">Logout</a>
+    <a href="/cart_view" class="cart-icon">
+      <i class="fas fa-shopping-cart" style="font-size: 20px; color: #fce8d5;"></i>
+      <span class="cart-count">{{ cart_count }}</span>
+    </a>
+  </div>
 </div>
+
+<!-- Include content -->
 {% include 'client/profile.html' %}
 {% include 'client/footer.html' %}
+
+<script>
+  function toggleMenu() {
+    document.getElementById('menuLeft').classList.toggle('show');
+    document.getElementById('menuRight').classList.toggle('show');
+  }
+</script>
+
 </body>
 </html>
