@@ -8,39 +8,66 @@ from django.contrib.auth.decorators import login_required
 def index(request):
     cat = Category.objects.all()
     cart = request.session.get('cart', {})
-    cart_count = len(cart) 
-    context = {'cat': cat, 'cart_count': cart_count}
-    return render(request, 'client/index.html' , context)
+    cart_count = len(cart)
 
+    user = None
+    if request.session.get('user_id'):
+        try:
+            user = Client.objects.get(user_id=request.session['user_id'])
+        except Client.DoesNotExist:
+            pass
+
+    context = {'cat': cat, 'cart_count': cart_count, 'user': user}
+    return render(request, 'client/index.html', context)
 
 def product(request, category_id):
     if "user_id" not in request.session:
         return redirect("login")
-    categorye = get_object_or_404(Category ,category_id=category_id)  
-    prod = Product.objects.filter(category_id=categorye) 
-    context = { 'prod': prod}
+
+    categorye = get_object_or_404(Category, category_id=category_id)
+    prod = Product.objects.filter(category_id=categorye)
+
+    user = None
+    if request.session.get('user_id'):
+        try:
+            user = Client.objects.get(user_id=request.session['user_id'])
+        except Client.DoesNotExist:
+            pass
+
+    cart = request.session.get('cart', {})
+    cart_count = len(cart)
+
+    context = {'prod': prod, 'user': user, 'cart_count': cart_count}
     return render(request, 'client/products.html', context)
 
 
 def product_detail(request, product_id):
     if "user_id" not in request.session:
         return redirect("login")
+
     pero = get_object_or_404(Product, product_id=product_id)
     cat = Product.objects.filter(category=pero.category).exclude(product_id=product_id)
     prode = Product.objects.filter(product_id=product_id)
     produce = get_object_or_404(Product, product_id=product_id)
-
     pcolors = ProductColor.objects.filter(product=produce)
-    
-    # تعيين color بقيمة افتراضية
-    color = None  
+
+    color = None
     if pcolors.exists():
-        color_ids = pcolors.values_list('color_id', flat=True) 
-        color = Color.objects.filter(color_id__in=color_ids)  
+        color_ids = pcolors.values_list('color_id', flat=True)
+        color = Color.objects.filter(color_id__in=color_ids)
 
-    context = {'color': color, 'prode': prode, 'cat': cat}
+    user = None
+    if request.session.get('user_id'):
+        try:
+            user = Client.objects.get(user_id=request.session['user_id'])
+        except Client.DoesNotExist:
+            pass
+
+    cart = request.session.get('cart', {})
+    cart_count = len(cart)
+
+    context = {'color': color, 'prode': prode, 'cat': cat, 'user': user, 'cart_count': cart_count}
     return render(request, 'client/product_details.html', context)
-
 
 
 
@@ -98,8 +125,19 @@ def update_cart_quantity(request, product_id, action):
 def cart_view(request):
     if "user_id" not in request.session:
         return redirect("login")
-    cart = request.session.get('cart', {})  
-    return render(request, 'client/cart.html', {'cart': cart})
+
+    cart = request.session.get('cart', {})
+
+    user = None
+    if request.session.get('user_id'):
+        try:
+            user = Client.objects.get(user_id=request.session['user_id'])
+        except Client.DoesNotExist:
+            pass
+
+    cart_count = len(cart)
+
+    return render(request, 'client/cart.html', {'cart': cart, 'user': user, 'cart_count': cart_count})
 
 
 def remove_from_cart(request, product_id):

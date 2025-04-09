@@ -29,7 +29,6 @@
       z-index: 1000;
       height: 70px;
       flex-wrap: nowrap;
-      
     }
 
     .nav-left, .nav-right {
@@ -166,8 +165,14 @@
     <img src="{% static 'img/logo.png' %}" class="logo" alt="navbar Logo" />
 
     <div class="nav-right" id="navRight">
-      <a href="/signup" onclick="closeMenu()">Sign Up</a>
-      <a href="/login" onclick="closeMenu()">Login</a>
+      {% if user.user_name %}
+        <span style="color: #fce8d5; font-weight: bold;">Welcome, {{ user.user_name }}</span>
+        <a href="/logout" onclick="closeMenu()">Logout</a>
+      {% else %}
+        <a href="/signup" onclick="closeMenu()">Sign Up</a>
+        <a href="/login" onclick="closeMenu()">Login</a>
+      {% endif %}
+
       <a href="/cart_view" class="cart-icon" onclick="closeMenu()">
         <i class="fas fa-shopping-cart" style="font-size: 26px; color: #fce8d5;"></i>
         <span class="cart-count">{{ cart_count }}</span>
