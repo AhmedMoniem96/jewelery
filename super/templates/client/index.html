@@ -251,12 +251,21 @@
         <div class="category">
           <div class="category-name">{{ co.name }}</div>
           <a href="/product/{{ co.category_id }}">
-            <img src="{{ co.imgc.url }}" alt="{{ co.name }}" />
+            {% if co.imgc %}
+              <img src="{{ co.imgc.url }}" alt="{{ co.name }}">
+            {% else %}
+              <img src="{% static 'img/default.png' %}" alt="No Image">
+            {% endif %}
           </a>
         </div>
         {% endfor %}
       </div>
     </div>
+    
+
+
+
+
 
     <div class="full-width-image-container">
       <hr />
