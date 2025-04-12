@@ -29,7 +29,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'super',
+    'cloudinary',
+    'cloudinary_storage',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -103,3 +106,12 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 LOGIN_URL = 'login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dnohoeyen',
+    'API_KEY': '952179258372482',
+    'API_SECRET': '2s_beNLC17aSGRpUOjwY9b0XRpI',
+}
